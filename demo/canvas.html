@@ -50,8 +50,8 @@
 
 
 	// Canvas renderer
-	var render = function(left, top, zoom) {
 		
+	Scroller.renderingEngine = function(left, top, zoom) {
 		// Sync current dimensions with canvas
 		content.width = clientWidth;
 		content.height = clientHeight;
