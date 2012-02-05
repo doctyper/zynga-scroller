@@ -6,33 +6,32 @@
 	<script src="../src/Scroller.js"></script>
 	<script src="../src/Raf.js"></script>
 	<script src="../src/Animate.js"></script>
-          
+
 	<script src="asset/render.js"></script>
 
 	<style type="text/css">
-	
-	#container{
+
+	#container-1, #container-2 {
+		margin: 20px;
 		width: 300px;
 		height: 400px;
 		border: 5px solid black;
-		position: absolute;
-		top: 20px;
-		left: 20px;
+		float: left;
 		overflow: hidden;
 		font-family: sans-serif;
 		cursor: default;
-	
+
 		-webkit-user-select: none;
 		-moz-user-select: none;
 		-ms-user-select: none;
 		-o-user-select: none;
 		user-select: none;
 	}
-	
-	#content{
+
+	#container-1 > div, #container-2 > div {
 		background: white;
-    width: 100%;
-		
+		width: 100%;
+
 		-webkit-transform-origin: left top;
 		-webkit-transform: translateZ(0);
 		-moz-transform-origin: left top;
@@ -44,7 +43,7 @@
 		transform-origin: left top;
 		transform: translateZ(0);
 	}
-	
+
 	.row{
 		height: 50px;
 		width: 100%;
@@ -54,7 +53,7 @@
 		line-height: 50px;
 		text-indent: 10px;
 	}
-	
+
 	.refresh{
 		background: #7b91aa;
 		color: white;
@@ -71,15 +70,15 @@
 		-o-transition: background-color 300ms;
 		transition: background-color 300ms;
 	}
-	
+
 	.refresh.active{
 		background: #006eb3;
 	}
-	
+
 	.refresh.running{
 		background: #00b373;
 	}
-	
+
 	</style>
 
 </head>
