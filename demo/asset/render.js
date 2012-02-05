@@ -11,7 +11,7 @@ Scroller.renderingEngine = function (scope) {
 		var e = document.createEvent("Events"),
 			name;
 
-		e.initEvent("touchinertia", false, true);
+		e.initEvent("touchinertia", true, true);
 
 		if (props) {
 			for (name in props) {
