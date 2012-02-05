@@ -6,11 +6,11 @@
 	<script src="../src/Scroller.js"></script>
 	<script src="../src/Raf.js"></script>
 	<script src="../src/Animate.js"></script>
-          
+
 	<script src="asset/render.js"></script>
 
 	<style type="text/css">
-	
+
 	#container{
 		width: 400px;
 		height: 400px;
@@ -19,19 +19,19 @@
 		top: 20px;
 		left: 20px;
 		overflow: hidden;
-	
+
 		-webkit-user-select: none;
 		-moz-user-select: none;
 		-ms-user-select: none;
 		-o-user-select: none;
 		user-select: none;
 	}
-	
+
 	#content{
 		background: white;
 		height: 4800px;
 		width: 400px;
-		
+
 		-webkit-transform-origin: left top;
 		-webkit-transform: translateZ(0);
 		-moz-transform-origin: left top;
@@ -43,7 +43,7 @@
 		transform-origin: left top;
 		transform: translateZ(0);
 	}
-	
+
 	.cell{
 		height: 400px;
 		line-height: 400px;
@@ -53,7 +53,7 @@
 		font-family: sans-serif;
 		font-size: 50px;
 	}
-	
+
 	</style>
 
 </head>
@@ -86,26 +86,26 @@
 		scrollingX: false,
 		paging: true
 	});
-	
-	
+
+
 	// Setup Scroller
 
 	var rect = container.getBoundingClientRect();
 
 	scroller.setPosition(rect.left+container.clientLeft, rect.top+container.clientTop);
 	scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight);
-	
-	
+
+
 	// Event Handler
-	
+
 	if ('ontouchstart' in window) {
-		
+
 		container.addEventListener("touchstart", function(e) {
 			// Don't react if initial down happens on a form element
 			if (e.target.tagName.match(/input|textarea|select/i)) {
 				return;
 			}
-			
+
 			scroller.doTouchStart(e.touches, e.timeStamp);
 			e.preventDefault();
 		}, false);
@@ -117,9 +117,9 @@
 		document.addEventListener("touchend", function(e) {
 			scroller.doTouchEnd(e.timeStamp);
 		}, false);
-		
+
 	} else {
-		
+
 		var mousedown = false;
 
 		container.addEventListener("mousedown", function(e) {
@@ -127,7 +127,7 @@
 			if (e.target.tagName.match(/input|textarea|select/i)) {
 				return;
 			}
-			
+
 			scroller.doTouchStart([{
 				pageX: e.pageX,
 				pageY: e.pageY
@@ -158,9 +158,9 @@
 
 			mousedown = false;
 		}, false);
-		
+
 	}
-	
+
 	</script>
 </body>
 </html>

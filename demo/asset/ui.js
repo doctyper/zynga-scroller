@@ -115,7 +115,7 @@ if ('ontouchstart' in window) {
 		if (e.target.tagName.match(/input|textarea|select/i)) {
 			return;
 		}
-		
+
 		scroller.doTouchStart([{
 			pageX: e.pageX,
 			pageY: e.pageY
@@ -128,7 +128,7 @@ if ('ontouchstart' in window) {
 		if (!mousedown) {
 			return;
 		}
-		
+
 		scroller.doTouchMove([{
 			pageX: e.pageX,
 			pageY: e.pageY
@@ -141,7 +141,7 @@ if ('ontouchstart' in window) {
 		if (!mousedown) {
 			return;
 		}
-		
+
 		scroller.doTouchEnd(e.timeStamp);
 
 		mousedown = false;
