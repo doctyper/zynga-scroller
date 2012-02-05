@@ -1,3 +1,5 @@
+/*global Scroller */
+
 // Intialize layout
 var container = document.getElementById("container");
 var content = document.getElementById("content");
@@ -6,7 +8,7 @@ var clientHeight = 0;
 var render = Scroller.render(window, content);
 
 // Initialize Scroller
-this.scroller = new Scroller(render, {
+var scroller = new Scroller(render, {
 	zooming: true
 });
 
@@ -15,7 +17,7 @@ var scrollLeftField = document.getElementById("scrollLeft");
 var scrollTopField = document.getElementById("scrollTop");
 var zoomLevelField = document.getElementById("zoomLevel");
 
-setInterval(function() {
+setInterval(function () {
 	var values = scroller.getValues();
 	scrollLeftField.value = values.left.toFixed(2);
 	scrollTopField.value = values.top.toFixed(2);
@@ -28,7 +30,7 @@ scroller.setPosition(rect.left + container.clientLeft, rect.top + container.clie
 
 
 // Reflow handling
-var reflow = function() {
+var reflow = function () {
 	clientWidth = container.clientWidth;
 	clientHeight = container.clientHeight;
 	scroller.setDimensions(clientWidth, clientHeight, contentWidth, contentHeight);
@@ -38,48 +40,48 @@ window.addEventListener("resize", reflow, false);
 reflow();
 
 var checkboxes = document.querySelectorAll("#settings input[type=checkbox]");
-for (var i=0, l=checkboxes.length; i<l; i++) {
-	checkboxes[i].addEventListener("change", function() {
+for (var i = 0, l = checkboxes.length; i < l; i++) {
+	checkboxes[i].addEventListener("change", function () {
 		scroller.options[this.id] = this.checked;
 	}, false);
 }
 
-document.querySelector("#settings #zoom").addEventListener("click", function() {
+document.querySelector("#settings #zoom").addEventListener("click", function () {
 	scroller.zoomTo(parseFloat(document.getElementById("zoomLevel").value));
 }, false);
 
-document.querySelector("#settings #zoomIn").addEventListener("click", function() {
+document.querySelector("#settings #zoomIn").addEventListener("click", function () {
 	scroller.zoomBy(1.2, true);
 }, false);
 
-document.querySelector("#settings #zoomOut").addEventListener("click", function() {
+document.querySelector("#settings #zoomOut").addEventListener("click", function () {
 	scroller.zoomBy(0.8, true);
 }, false);
 
-document.querySelector("#settings #scrollTo").addEventListener("click", function() {
+document.querySelector("#settings #scrollTo").addEventListener("click", function () {
 	scroller.scrollTo(parseFloat(document.getElementById("scrollLeft").value), parseFloat(document.getElementById("scrollTop").value), true);
 }, false);
 
-document.querySelector("#settings #scrollByUp").addEventListener("click", function() {
+document.querySelector("#settings #scrollByUp").addEventListener("click", function () {
 	scroller.scrollBy(0, -150, true);
 }, false);
 
-document.querySelector("#settings #scrollByRight").addEventListener("click", function() {
+document.querySelector("#settings #scrollByRight").addEventListener("click", function () {
 	scroller.scrollBy(150, 0, true);
 }, false);
 
-document.querySelector("#settings #scrollByDown").addEventListener("click", function() {
+document.querySelector("#settings #scrollByDown").addEventListener("click", function () {
 	scroller.scrollBy(0, 150, true);
 }, false);
 
-document.querySelector("#settings #scrollByLeft").addEventListener("click", function() {
+document.querySelector("#settings #scrollByLeft").addEventListener("click", function () {
 	scroller.scrollBy(-150, 0, true);
 }, false);
 
 
 if ('ontouchstart' in window) {
 
-	container.addEventListener("touchstart", function(e) {
+	container.addEventListener("touchstart", function (e) {
 		// Don't react if initial down happens on a form element
 		if (e.touches[0] && e.touches[0].target && e.touches[0].target.tagName.match(/input|textarea|select/i)) {
 			return;
@@ -89,15 +91,15 @@ if ('ontouchstart' in window) {
 		e.preventDefault();
 	}, false);
 
-	document.addEventListener("touchmove", function(e) {
+	document.addEventListener("touchmove", function (e) {
 		scroller.doTouchMove(e.touches, e.timeStamp, e.scale);
 	}, false);
 
-	document.addEventListener("touchend", function(e) {
+	document.addEventListener("touchend", function (e) {
 		scroller.doTouchEnd(e.timeStamp);
 	}, false);
 
-	document.addEventListener("touchcancel", function(e) {
+	document.addEventListener("touchcancel", function (e) {
 		scroller.doTouchEnd(e.timeStamp);
 	}, false);
 
@@ -109,7 +111,7 @@ if ('ontouchstart' in window) {
 
 	var mousedown = false;
 
-	container.addEventListener("mousedown", function(e) {
+	container.addEventListener("mousedown", function (e) {
 		if (e.target.tagName.match(/input|textarea|select/i)) {
 			return;
 		}
@@ -122,7 +124,7 @@ if ('ontouchstart' in window) {
 		mousedown = true;
 	}, false);
 
-	document.addEventListener("mousemove", function(e) {
+	document.addEventListener("mousemove", function (e) {
 		if (!mousedown) {
 			return;
 		}
@@ -135,7 +137,7 @@ if ('ontouchstart' in window) {
 		mousedown = true;
 	}, false);
 
-	document.addEventListener("mouseup", function(e) {
+	document.addEventListener("mouseup", function (e) {
 		if (!mousedown) {
 			return;
 		}
@@ -145,18 +147,8 @@ if ('ontouchstart' in window) {
 		mousedown = false;
 	}, false);
 
-	container.addEventListener(navigator.userAgent.indexOf("Firefox") > -1 ? "DOMMouseScroll" :  "mousewheel", function(e) {
+	container.addEventListener(navigator.userAgent.indexOf("Firefox") > -1 ? "DOMMouseScroll" :  "mousewheel", function (e) {
 		scroller.doMouseZoom(e.detail ? (e.detail * -120) : e.wheelDelta, e.timeStamp, e.pageX, e.pageY);
 	}, false);
 
 }
-
-/*
-// Test for background activity (slow down scrolling)
-setInterval(function() {
-	var arr = [];
-	for (var i=0, l=Math.random()*600; i<l; i++) {
-		arr.push.call(arr, document.querySelectorAll(".abc" + i));
-	}
-}, 50);
-*/
