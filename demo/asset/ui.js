@@ -3,6 +3,7 @@ var container = document.getElementById("container");
 var content = document.getElementById("content");
 var clientWidth = 0;
 var clientHeight = 0;
+var render = Scroller.render(window, content);
 
 // Initialize Scroller
 this.scroller = new Scroller(render, {

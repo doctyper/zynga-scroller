@@ -32,13 +32,11 @@
 	var counter = 1;
 
 	// Create namespaces
-	if (!global.core) {
-		global.core = { effect : {} };
-	} else if (!core.effect) {
-		core.effect = {};
+	if (!global.effect) {
+		global.effect = {};
 	}
 
-	core.effect.Animate = {
+	global.effect.Animate = {
 
 		/**
 		 * Stops the given animation.
@@ -149,7 +147,7 @@
 					completedCallback && completedCallback(desiredFrames - (dropCounter / ((now - start) / millisecondsPerSecond)), id, percent === 1 || duration == null);
 				} else if (render) {
 					lastFrame = now;
-					requestAnimationFrame(step, root);
+					global.requestAnimationFrame(step, root);
 				}
 			};
 
@@ -157,11 +155,11 @@
 			running[id] = true;
 
 			// Init first step
-			requestAnimationFrame(step, root);
+			global.requestAnimationFrame(step, root);
 
 			// Return unique animation ID
 			return id;
 		}
 	};
-})(this);
+})(Scroller);
 

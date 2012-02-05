@@ -1,6 +1,5 @@
 /* DOM-based rendering (Uses 3D when available, falls back on margin when transform not available) */
-var render = (function(global) {
-	
+Scroller.renderingEngine = function (scope) {
 	function dispatch(target, props) {
 		var e = document.createEvent("Events"),
 			name;
@@ -79,7 +78,6 @@ var render = (function(global) {
 				zoom: zoom
 			});
 		};
-		
-	}
-})(this);
 
+	}
+};
