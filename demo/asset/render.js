@@ -1,6 +1,21 @@
 /* DOM-based rendering (Uses 3D when available, falls back on margin when transform not available) */
 var render = (function(global) {
 	
+	function dispatch(target, props) {
+		var e = document.createEvent("Events"),
+			name;
+
+		e.initEvent("touchinertia", false, true);
+
+		if (props) {
+			for (name in props) {
+				e[name] = props[name];
+			}
+		}
+
+		return target.dispatchEvent(e);
+	}
+
 	var docStyle = document.documentElement.style;
 	
 	var engine;
@@ -31,12 +46,24 @@ var render = (function(global) {
 		
 		return function(left, top, zoom) {
 			content.style[transformProperty] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')';
+
+			dispatch(document, {
+				translateX: left,
+				translateY: top,
+				zoom: zoom
+			});
 		};	
 		
 	} else if (helperElem.style[transformProperty] !== undef) {
 		
 		return function(left, top, zoom) {
 			content.style[transformProperty] = 'translate(' + (-left) + 'px,' + (-top) + 'px) scale(' + zoom + ')';
+
+			dispatch(document, {
+				translateX: left,
+				translateY: top,
+				zoom: zoom
+			});
 		};
 		
 	} else {
@@ -45,6 +72,12 @@ var render = (function(global) {
 			content.style.marginLeft = left ? (-left/zoom) + 'px' : '';
 			content.style.marginTop = top ? (-top/zoom) + 'px' : '';
 			content.style.zoom = zoom || '';
+
+			dispatch(document, {
+				translateX: left,
+				translateY: top,
+				zoom: zoom
+			});
 		};
 		
 	}

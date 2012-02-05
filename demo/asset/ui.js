@@ -100,6 +100,10 @@ if ('ontouchstart' in window) {
 		scroller.doTouchEnd(e.timeStamp);
 	}, false);
 
+	document.addEventListener("touchinertia", function (e) {
+		console.log([e.translateX, e.translateY, e.zoom].join(", "));
+	}, false);
+
 } else {
 
 	var mousedown = false;
